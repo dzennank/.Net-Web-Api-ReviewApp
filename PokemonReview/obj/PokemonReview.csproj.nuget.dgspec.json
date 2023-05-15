@@ -10,11 +10,11 @@
         "projectUniqueName": "C:\\Users\\Dzeno\\Desktop\\.Net\\PokemonReview\\PokemonReview\\PokemonReview.csproj",
         "projectName": "PokemonReview",
         "projectPath": "C:\\Users\\Dzeno\\Desktop\\.Net\\PokemonReview\\PokemonReview\\PokemonReview.csproj",
-        "packagesPath": "C:\\Users\\Dzeno\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Dzenan\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Dzeno\\Desktop\\.Net\\PokemonReview\\PokemonReview\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Dzeno\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Dzenan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -41,6 +41,22 @@
           "targetAlias": "net7.0",
           "dependencies": {
             "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.5, )"
             },
