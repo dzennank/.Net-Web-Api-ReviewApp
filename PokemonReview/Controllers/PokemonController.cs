@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace PokemonReview.Controllers
 {
-    [Route("api/controller")]
+    [Route("api/pokemon")]
     [ApiController]
     public class PokemonController : Controller
     {
