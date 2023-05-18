@@ -7,7 +7,6 @@ namespace PokemonReview.Interfaces
         List<Country> GetCountries();
         Country GetCountry(int id);
         Country GetCountryByOwner(int ownerId);
-        List<Owner> GetOwnersFromACountry(int countryId);
         bool CountryExists(int id);
     }
 }

@@ -58,16 +58,6 @@ namespace PokemonReview.Controllers
             return Ok(country);
         }
 
-        [HttpGet("owners/{countryId}")]
-        [ProducesResponseType(200, Type = typeof(List<Owner>))]
-        [ProducesResponseType(400)]
-
-        public IActionResult GetOwnersByCountry(int countryId)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            var owners = _countryRepository.GetOwnersFromACountry(countryId);
-            return Ok(owners);
-        }
+        
     }
 }
