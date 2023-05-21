@@ -7,7 +7,7 @@ using PokemonReview.Repository;
 
 namespace PokemonReview.Controllers
 {
-    [Route("api/Country")]
+    [Route("api/country")]
     [ApiController]
     public class CountryController : Controller
     {

@@ -6,7 +6,7 @@ using PokemonReview.Models;
 
 namespace PokemonReview.Controllers
 {
-    [Route("api/Category")]
+    [Route("api/category")]
     [ApiController]
     public class CategoryController : Controller
     {
