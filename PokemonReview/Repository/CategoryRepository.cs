@@ -1,6 +1,7 @@
 ﻿using PokemonReview.Data;
 using PokemonReview.Interfaces;
 using PokemonReview.Models;
+using System.Reflection.Metadata.Ecma335;
 
 namespace PokemonReview.Repository
 {
@@ -18,6 +19,12 @@ namespace PokemonReview.Repository
             return _context.Categories.Any(c => c.Id == id);
         }
 
+        public bool CreateCategory(Category category)
+        {
+            _context.Add(category);
+            return Save();
+        }
+
         public ICollection<Category> GetCategories()
         {
             return _context.Categories.OrderBy(c => c.Id).ToList();
@@ -31,6 +38,12 @@ namespace PokemonReview.Repository
         public ICollection<Pokemon> GetPokemonByCategory(int categoryId)
         {
             return _context.PokemonCategories.Where(c => c.CategoryId == categoryId).Select(c => c.Pokemon).ToList(); 
+        }
+
+        public bool Save()
+        {
+            var save = _context.SaveChanges();
+            return save > 0 ? true : false;
         }
     }
 }
