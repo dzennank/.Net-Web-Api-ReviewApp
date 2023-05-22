@@ -12,6 +12,13 @@ namespace PokemonReview.Repository
         {
             _context = context;
         }
+
+        public bool CreateOwner(Owner owner)
+        {
+            _context.Add(owner);
+            return Save();
+        }
+
         public Owner GetOwner(int id)
         {
             return _context.Owners.Where(o => o.Id == id).FirstOrDefault();
@@ -31,6 +38,11 @@ namespace PokemonReview.Repository
         public bool OwnerExists(int id)
         {
             return _context.Owners.Any(o => o.Id == id);
+        }
+
+        public bool Save()
+        {
+            return _context.SaveChanges() > 0;
         }
     }
 }
