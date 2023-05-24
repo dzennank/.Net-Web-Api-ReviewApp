@@ -9,6 +9,10 @@ namespace PokemonReview.Interfaces
         Review GetReviewByReviewer(int reviewerId);
         List<Review> GetReviewByPokemon(int pokeId);
 
+        bool CreateReview (Review review);
+
+        bool Save();
+
         bool ReviewExists(int reviewId);
 
     }

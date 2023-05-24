@@ -13,6 +13,12 @@ namespace PokemonReview.Repository
             _context = context;
         }
 
+        public bool CreateReview(Review review)
+        {
+            _context.Add(review);
+            return Save();
+        }
+
         public Review GetReview(int id)
         {
             return _context.Reviews.Where(r => r.Id == id).FirstOrDefault();
@@ -38,6 +44,9 @@ namespace PokemonReview.Repository
             return _context.Reviews.Any(r => r.Id == reviewId);
         }
 
-        
+        public bool Save()
+        {
+            return _context.SaveChanges() > 0;
+        }
     }
 }
