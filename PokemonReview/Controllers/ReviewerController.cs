@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PokemonReview.Dto;
 using PokemonReview.Interfaces;
 using PokemonReview.Models;
+using PokemonReview.Repository;
 
 namespace PokemonReview.Controllers
 {
@@ -56,6 +57,32 @@ namespace PokemonReview.Controllers
              var getReview = _reviwerRepository.GetReviewByReviewer(reviewerId);
             var review = _mapper.Map<List<ReviewDto>>(getReview);
             return Ok(review);
+
+        }
+
+        [HttpPost]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateOwner([FromBody] ReviewerDto reviewer)
+        {
+            if (reviewer == null)
+                return BadRequest(ModelState);
+            var reviewerName = _reviwerRepository.GetReviewers().Where(o => o.LastName.ToUpper() == reviewer.LastName.ToUpper()).FirstOrDefault();
+            if (reviewerName != null)
+            {
+                ModelState.AddModelError("", "Review already exists");
+                return StatusCode(422, ModelState);
+            }
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            var reviewerMapp = _mapper.Map<Reviewer>(reviewer);
+
+            if (!_reviwerRepository.CreateReviewer(reviewerMapp))
+            {
+                ModelState.AddModelError("", "Something went wrong while saving");
+                return StatusCode(500, ModelState);
+            }
+            return Ok("Sucessfully created");
 
         }
     }
