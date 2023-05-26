@@ -8,6 +8,9 @@ namespace PokemonReview.Interfaces
         Owner GetOwner(int id);
         List<Owner> GetOwnersFromACountry(int countryId);
         bool CreateOwner(Owner owner);
+
+        bool UpdateOwner(Owner owner);
+
         bool Save();
         bool OwnerExists(int id);
 

@@ -44,5 +44,11 @@ namespace PokemonReview.Repository
         {
             return _context.SaveChanges() > 0;
         }
+
+        public bool UpdateOwner(Owner owner)
+        {
+            _context.Update(owner);
+            return Save();
+        }
     }
 }

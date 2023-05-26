@@ -12,6 +12,9 @@ namespace PokemonReview.Interfaces
         decimal GetPokemonRating(int pokeId);
 
         bool createPokemon(int ownerId, int categoryId, Pokemon pokemon);
+
+        bool UpdatePokemon(Pokemon pokemon);
+
         bool Save();
         bool PokemonExists(int pokeId);
     }

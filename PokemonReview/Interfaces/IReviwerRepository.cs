@@ -10,6 +10,8 @@ namespace PokemonReview.Interfaces
 
         bool CreateReviewer(Reviewer reviewer);
 
+        bool UpdateReviewer(Reviewer reviewer);
+
         bool Save();
 
         bool ReviewerExists(int id);
