@@ -91,7 +91,7 @@ namespace PokemonReview.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
 
-        public IActionResult UpdateCategory([FromBody] ReviewerDto reviewerUpdate, int reviewerId)
+        public IActionResult UpdateReviewer([FromBody] ReviewerDto reviewerUpdate, int reviewerId)
         {
             if (reviewerUpdate == null)
                 return BadRequest(ModelState);
@@ -112,6 +112,31 @@ namespace PokemonReview.Controllers
                 return StatusCode(500, ModelState);
             }
             return Ok("Sucessfully updated");
+
+        }
+
+        [HttpDelete("{reviewerId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteReviewer(int reviewerId)
+        {
+            if (!_reviwerRepository.ReviewerExists(reviewerId))
+                return NotFound();
+
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var reviewer = _reviwerRepository.GetReviewer(reviewerId);
+
+            if (!_reviwerRepository.DeleteReviewer(reviewer))
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Sucessfully deleted");
 
         }
     }

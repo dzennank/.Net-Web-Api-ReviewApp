@@ -100,32 +100,28 @@ namespace PokemonReview.Controllers
             return Ok("Sucessfully created");
         }
 
-        [HttpPut("{reviewId}")]
+        [HttpDelete("{reviewId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-
-        public IActionResult UpdateCategory([FromBody] ReviewDto reviewUpdate, int reviewId)
+        public IActionResult DeleteReview(int reviewId)
         {
-            if (reviewUpdate == null)
-                return BadRequest(ModelState);
-
-            if (reviewId != reviewUpdate.Id)
-                return BadRequest(ModelState);
-
             if (!_reviewRepository.ReviewExists(reviewId))
                 return NotFound();
+
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var review = _mapper.Map<Review>(reviewUpdate);
-            if (!_reviewRepository.UpdateReview(review))
+            var review = _reviewRepository.GetReview(reviewId);
+
+            if (!_reviewRepository.DeleteReview(review))
             {
                 ModelState.AddModelError("", "Something went wrong");
                 return StatusCode(500, ModelState);
             }
-            return Ok("Sucessfully updated");
+
+            return Ok("Sucessfully deleted");
 
         }
     }

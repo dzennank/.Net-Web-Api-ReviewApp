@@ -4,6 +4,7 @@ using PokemonReview.Dto;
 using PokemonReview.Interfaces;
 using PokemonReview.Models;
 using PokemonReview.Repository;
+using System.Diagnostics.Metrics;
 
 namespace PokemonReview.Controllers
 {
@@ -89,7 +90,7 @@ namespace PokemonReview.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
 
-        public IActionResult UpdateCategory([FromBody] CountryDto countryUpdate, int countryId)
+        public IActionResult UpdateCountry([FromBody] CountryDto countryUpdate, int countryId)
         {
             if (countryUpdate == null)
                 return BadRequest(ModelState);
@@ -110,6 +111,31 @@ namespace PokemonReview.Controllers
                 return StatusCode(500, ModelState);
             }
             return Ok("Sucessfully updated");
+
+        }
+
+        [HttpDelete("{countryId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteCountry(int countryId)
+        {
+            if (!_countryRepository.CountryExists(countryId))
+                return NotFound();
+
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var country = _countryRepository.GetCountry(countryId);
+
+            if (!_countryRepository.DeleteCountry(country))
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Sucessfully deleted");
 
         }
 

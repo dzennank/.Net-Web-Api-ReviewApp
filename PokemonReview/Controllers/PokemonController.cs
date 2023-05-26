@@ -86,32 +86,28 @@ namespace PokemonReview.Controllers
 
         }
 
-        [HttpPut("{pokemonId}")]
+        [HttpDelete("{pokemonId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-
-        public IActionResult UpdateCategory([FromBody] PokemonDto pokemonUpdate, int pokemonId)
+        public IActionResult DeletePokemon(int pokemonId)
         {
-            if (pokemonUpdate == null)
-                return BadRequest(ModelState);
-
-            if (pokemonId != pokemonUpdate.Id)
-                return BadRequest(ModelState);
-
             if (!_pokemonRepository.PokemonExists(pokemonId))
                 return NotFound();
+
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var pokemon = _mapper.Map<Pokemon>(pokemonUpdate);
-            if (!_pokemonRepository.UpdatePokemon(pokemon))
+            var pokemon = _pokemonRepository.GetPokemon(pokemonId);
+
+            if (!_pokemonRepository.DeletePokemon(pokemon))
             {
                 ModelState.AddModelError("", "Something went wrong");
                 return StatusCode(500, ModelState);
             }
-            return Ok("Sucessfully updated");
+
+            return Ok("Sucessfully deleted");
 
         }
     }

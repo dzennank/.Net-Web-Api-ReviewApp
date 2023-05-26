@@ -91,7 +91,7 @@ namespace PokemonReview.Controllers
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
 
-        public IActionResult UpdateCategory([FromBody] OwnerDto ownerUpdate, int ownerId)
+        public IActionResult UpdateOwner([FromBody] OwnerDto ownerUpdate, int ownerId)
         {
             if (ownerUpdate == null)
                 return BadRequest(ModelState);
@@ -112,6 +112,31 @@ namespace PokemonReview.Controllers
                 return StatusCode(500, ModelState);
             }
             return Ok("Sucessfully updated");
+
+        }
+
+        [HttpDelete("{ownerId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteOwner(int ownerId)
+        {
+            if (!_ownerRepository.OwnerExists(ownerId))
+                return NotFound();
+
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var owner = _ownerRepository.GetOwner(ownerId);
+
+            if (!_ownerRepository.DeleteOwner(owner))
+            {
+                ModelState.AddModelError("", "Something went wrong");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Sucessfully deleted");
 
         }
     }
